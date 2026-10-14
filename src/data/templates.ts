@@ -10,6 +10,24 @@ interface TemplateDef {
 
 export const ROUTINE_TEMPLATES: TemplateDef[] = [
   {
+    id: 'tpl-home-cortisol-weight',
+    name: 'Baja de cortisol y baja de peso en casa',
+    objective: 'weight_management',
+    days: ['mon', 'tue', 'wed', 'thu', 'fri'],
+    exercises: [
+      { exerciseId: 'jumping-jack', config: { sets: 3, reps: 40, repType: 'duration', restSeconds: 20, notes: 'Calentamiento. Ritmo constante para empezar a sudar.' } },
+      { exerciseId: 'squat', config: { sets: 3, reps: 15, repType: 'reps', restSeconds: 40, notes: 'Baja con control y sube exhalando.' } },
+      { exerciseId: 'incline-push-up', config: { sets: 3, reps: 10, repType: 'reps', restSeconds: 40, notes: 'Apoya las manos en una mesa o sillón firme.' } },
+      { exerciseId: 'lunge', config: { sets: 3, reps: 10, repType: 'reps', restSeconds: 40, notes: '10 por pierna. Paso corto y rodilla estable.' } },
+      { exerciseId: 'glute-bridge', config: { sets: 3, reps: 15, repType: 'reps', restSeconds: 40, notes: 'Aprieta glúteos arriba y baja sin dejar caer la espalda.' } },
+      { exerciseId: 'high-knees', config: { sets: 3, reps: 30, repType: 'duration', restSeconds: 30, notes: 'Rodillas altas, aterriza suave.' } },
+      { exerciseId: 'mountain-climber', config: { sets: 3, reps: 30, repType: 'duration', restSeconds: 30, notes: 'Cadera baja y respiración seguida.' } },
+      { exerciseId: 'burpee', config: { sets: 3, reps: 8, repType: 'reps', restSeconds: 45, notes: 'Sin salto si te falta aire. El objetivo es sudar, no ir al fallo.' } },
+      { exerciseId: 'bird-dog', config: { sets: 3, reps: 8, repType: 'reps', restSeconds: 30, notes: '8 por lado. Lento, para bajar el ritmo al final.' } },
+      { exerciseId: 'plank', config: { sets: 3, reps: 30, repType: 'duration', restSeconds: 30, notes: 'Cuerpo recto. Exhala despacio durante la plancha.' } },
+    ],
+  },
+  {
     id: 'tpl-fullbody-beginner',
     name: 'Cuerpo completo principiante',
     objective: 'general_fitness',
