@@ -44,6 +44,7 @@ interface AppState {
   clearActiveWorkout: () => void;
   updateActiveWorkout: (partial: Partial<ActiveWorkoutState>) => void;
   completeSet: (reps: number) => void;
+  startSet: () => void;
   skipRest: () => void;
   startRest: (seconds: number) => void;
   nextExercise: () => void;
@@ -144,6 +145,8 @@ export const useStore = create<AppState>()(
             completedExercises: [],
             isResting: false,
             restEndsAt: null,
+            isWorking: false,
+            workEndsAt: null,
             isPaused: false,
           },
         });
@@ -186,16 +189,19 @@ export const useStore = create<AppState>()(
                 ...aw,
                 completedExercises,
                 currentReps: 0,
+                isWorking: false,
+                workEndsAt: null,
               },
             });
           } else {
-            // Move to next exercise after rest
             set({
               activeWorkout: {
                 ...aw,
                 completedExercises,
                 isResting: true,
                 restEndsAt: new Date(Date.now() + currentEx.config.restSeconds * 1000).toISOString(),
+                isWorking: false,
+                workEndsAt: null,
               },
             });
           }
@@ -208,16 +214,43 @@ export const useStore = create<AppState>()(
               currentReps: 0,
               isResting: true,
               restEndsAt: new Date(Date.now() + currentEx.config.restSeconds * 1000).toISOString(),
+              isWorking: false,
+              workEndsAt: null,
             },
           });
         }
+      },
+
+      startSet: () => {
+        const aw = get().activeWorkout;
+        if (!aw || aw.isResting || aw.isPaused || aw.isWorking) return;
+        const routine = get().routines.find((item) => item.id === aw.routineId);
+        const currentEx = routine?.exercises[aw.currentExerciseIndex];
+        if (!currentEx) return;
+        const timed = currentEx.config.repType === 'duration';
+        set({
+          activeWorkout: {
+            ...aw,
+            isWorking: true,
+            currentReps: 0,
+            workEndsAt: timed
+              ? new Date(Date.now() + currentEx.config.reps * 1000).toISOString()
+              : null,
+          },
+        });
       },
 
       skipRest: () =>
         set((state) => {
           if (!state.activeWorkout) return {};
           return {
-            activeWorkout: { ...state.activeWorkout, isResting: false, restEndsAt: null },
+            activeWorkout: {
+              ...state.activeWorkout,
+              isResting: false,
+              restEndsAt: null,
+              isWorking: false,
+              workEndsAt: null,
+            },
           };
         }),
 
@@ -229,6 +262,8 @@ export const useStore = create<AppState>()(
               ...state.activeWorkout,
               isResting: true,
               restEndsAt: new Date(Date.now() + seconds * 1000).toISOString(),
+              isWorking: false,
+              workEndsAt: null,
             },
           };
         }),
@@ -247,6 +282,8 @@ export const useStore = create<AppState>()(
             currentReps: 0,
             isResting: false,
             restEndsAt: null,
+            isWorking: false,
+            workEndsAt: null,
           },
         });
       },

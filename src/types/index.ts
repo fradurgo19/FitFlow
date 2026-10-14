@@ -117,6 +117,8 @@ export interface ActiveWorkoutState {
   completedExercises: CompletedExercise[];
   isResting: boolean;
   restEndsAt: string | null;
+  isWorking: boolean;
+  workEndsAt: string | null;
   isPaused: boolean;
 }
 

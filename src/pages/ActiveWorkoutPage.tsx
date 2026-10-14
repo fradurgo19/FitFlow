@@ -31,6 +31,7 @@ export function ActiveWorkoutPage() {
     routines,
     preferences,
     completeSet,
+    startSet,
     skipRest,
     nextExercise,
     finishWorkout,
@@ -42,6 +43,8 @@ export function ActiveWorkoutPage() {
   const [elapsedSeconds, setElapsedSeconds] = useState(0);
   const [showVideo, setShowVideo] = useState(true);
   const prevRestRef = useRef(false);
+  const restStartArmed = useRef<boolean | null>(null);
+  const completingRef = useRef(false);
 
   const routine = activeWorkout
     ? routines.find((r) => r.id === activeWorkout.routineId)
@@ -69,6 +72,13 @@ export function ActiveWorkoutPage() {
   const restSecondsLeft = activeWorkout?.restEndsAt
     ? Math.max(0, Math.ceil((new Date(activeWorkout.restEndsAt).getTime() - now) / 1000))
     : 0;
+  const workSecondsLeft = activeWorkout?.workEndsAt
+    ? Math.max(0, Math.ceil((new Date(activeWorkout.workEndsAt).getTime() - now) / 1000))
+    : 0;
+  const isLastSet = Boolean(currentEx && activeWorkout && activeWorkout.currentSet >= currentEx.config.sets);
+  const isLastExercise = Boolean(
+    routine && activeWorkout && activeWorkout.currentExerciseIndex >= routine.exercises.length - 1,
+  );
 
   const handleSound = useCallback(
     (type: SoundType) => {
@@ -79,20 +89,62 @@ export function ActiveWorkoutPage() {
     [preferences.sound],
   );
 
+  const finishCurrentSet = useCallback(
+    (reps: number) => {
+      if (!activeWorkout || completingRef.current) return;
+      completingRef.current = true;
+      const endingWorkout = isLastSet && isLastExercise;
+      handleSound('work-end');
+      completeSet(reps);
+      if (!endingWorkout) return;
+      window.setTimeout(() => {
+        handleSound('workout-complete');
+        const session = finishWorkout();
+        if (session) navigate('/workout/summary', { state: { sessionId: session.id } });
+      }, 400);
+    },
+    [activeWorkout, completeSet, finishWorkout, handleSound, isLastExercise, isLastSet, navigate],
+  );
+
+  useEffect(() => {
+    completingRef.current = false;
+  }, [activeWorkout?.currentExerciseIndex, activeWorkout?.currentSet, activeWorkout?.isWorking]);
+
+  useEffect(() => {
+    const resting = Boolean(activeWorkout?.isResting);
+    if (restStartArmed.current === null) {
+      restStartArmed.current = resting;
+      return;
+    }
+    if (!resting || restStartArmed.current) {
+      restStartArmed.current = resting;
+      return;
+    }
+    restStartArmed.current = true;
+    const timer = window.setTimeout(() => handleSound('rest-start'), 350);
+    return () => window.clearTimeout(timer);
+  }, [activeWorkout?.isResting, handleSound]);
+
+  useEffect(() => {
+    if (!activeWorkout || activeWorkout.isPaused || !activeWorkout.isWorking || !currentEx) return;
+    if (currentEx.config.repType === 'duration' && activeWorkout.workEndsAt && workSecondsLeft <= 0) {
+      finishCurrentSet(currentEx.config.reps);
+      return;
+    }
+    if (currentEx.config.repType === 'reps' && currentEx.config.reps > 0 && activeWorkout.currentReps >= currentEx.config.reps) {
+      finishCurrentSet(activeWorkout.currentReps);
+    }
+  }, [activeWorkout, currentEx, finishCurrentSet, workSecondsLeft]);
+
   // Auto-transition when rest ends
   useEffect(() => {
     if (!activeWorkout || activeWorkout.isPaused) return;
     const wasResting = prevRestRef.current;
     if (activeWorkout.isResting && restSecondsLeft <= 0 && wasResting) {
-      // Rest ended
       handleSound('rest-end');
-      // Check if this was the last set of the exercise
       if (currentEx && activeWorkout.currentSet >= currentEx.config.sets) {
-        // Move to next exercise
         nextExercise();
-        handleSound('exercise-transition');
       } else {
-        // Just end rest, stay on current exercise/set
         skipRest();
       }
     }
@@ -116,22 +168,24 @@ export function ActiveWorkoutPage() {
   const totalExercises = routine.exercises.length;
   const exerciseProgress = ((activeWorkout.currentExerciseIndex + 1) / totalExercises) * 100;
   const currentSetTarget = currentEx.config.sets;
-  const isLastSet = activeWorkout.currentSet >= currentEx.config.sets;
-  const isLastExercise = activeWorkout.currentExerciseIndex >= totalExercises - 1;
+  const timedSet = currentEx.config.repType === 'duration';
+  const setIsReady = !activeWorkout.isWorking && !activeWorkout.isResting;
+
+  const handleStartSet = () => {
+    if (!setIsReady || activeWorkout.isPaused) return;
+    startSet();
+    handleSound('work-start');
+  };
 
   const handleCompleteSet = () => {
-    const reps = activeWorkout.currentReps > 0 ? activeWorkout.currentReps : currentEx.config.reps;
-    completeSet(reps);
-    handleSound('set-complete');
-
-    if (isLastSet && isLastExercise) {
-      // Workout finished
-      setTimeout(() => {
-        handleSound('workout-complete');
-        const session = finishWorkout();
-        if (session) navigate('/workout/summary', { state: { sessionId: session.id } });
-      }, 300);
+    if (!activeWorkout.isWorking) return;
+    if (timedSet) {
+      const done = Math.max(1, currentEx.config.reps - workSecondsLeft);
+      finishCurrentSet(done);
+      return;
     }
+    if (activeWorkout.currentReps <= 0) return;
+    finishCurrentSet(activeWorkout.currentReps);
   };
 
   const handleSkipExercise = () => {
@@ -167,7 +221,10 @@ export function ActiveWorkoutPage() {
     const restEndsAt = activeWorkout.restEndsAt
       ? new Date(new Date(activeWorkout.restEndsAt).getTime() + pausedFor).toISOString()
       : null;
-    updateActiveWorkout({ isPaused: false, startedAt, restEndsAt });
+    const workEndsAt = activeWorkout.workEndsAt
+      ? new Date(new Date(activeWorkout.workEndsAt).getTime() + pausedFor).toISOString()
+      : null;
+    updateActiveWorkout({ isPaused: false, startedAt, restEndsAt, workEndsAt });
   };
 
   const adjustRest = (delta: number) => {
@@ -179,8 +236,9 @@ export function ActiveWorkoutPage() {
   };
 
   const adjustReps = (delta: number) => {
-    const newReps = Math.max(0, activeWorkout.currentReps + delta);
-    updateActiveWorkout({ currentReps: newReps });
+    if (!activeWorkout.isWorking || timedSet) return;
+    const next = Math.min(currentEx.config.reps, Math.max(0, activeWorkout.currentReps + delta));
+    updateActiveWorkout({ currentReps: next });
   };
 
   return (
@@ -317,36 +375,44 @@ export function ActiveWorkoutPage() {
           )}
         </div>
 
-        {/* Rep counter */}
+        {/* Rep or time counter */}
         <div className="mb-4 rounded-2xl bg-slate-900 border border-slate-800 p-6">
           <p className="mb-3 text-center text-sm font-medium text-slate-400">
-            {currentEx.config.repType === 'reps' ? 'Repeticiones' : 'Duración (segundos)'}
+            {counterLabel(timedSet, activeWorkout.isWorking, activeWorkout.isResting)}
           </p>
-          <div className="flex items-center justify-center gap-6">
-            <button
-              onClick={() => adjustReps(-1)}
-              disabled={activeWorkout.currentReps <= 0}
-              aria-label="Quitar una repetición"
-              className="flex h-16 w-16 items-center justify-center rounded-2xl bg-slate-800 text-white active:scale-90 transition-transform disabled:opacity-30"
-            >
-              <Minus size={32} />
-            </button>
+          {timedSet ? (
             <div className="text-center">
               <p className="text-6xl font-mono font-extrabold text-white tabular-nums">
-                {activeWorkout.currentReps}
+                {formatCountdown(activeWorkout.isWorking ? workSecondsLeft : currentEx.config.reps)}
               </p>
-              <p className="mt-1 text-xs text-slate-500">
-                Objetivo: {currentEx.config.reps}{currentEx.config.repType === 'duration' ? 's' : ''}
-              </p>
+              <p className="mt-1 text-xs text-slate-500">Objetivo: {currentEx.config.reps}s</p>
             </div>
-            <button
-              onClick={() => adjustReps(1)}
-              aria-label="Sumar una repetición"
-              className="flex h-16 w-16 items-center justify-center rounded-2xl bg-slate-800 text-white active:scale-90 transition-transform"
-            >
-              <Plus size={32} />
-            </button>
-          </div>
+          ) : (
+            <div className="flex items-center justify-center gap-6">
+              <button
+                onClick={() => adjustReps(-1)}
+                disabled={!activeWorkout.isWorking || activeWorkout.currentReps <= 0}
+                aria-label="Quitar una repetición"
+                className="flex h-16 w-16 items-center justify-center rounded-2xl bg-slate-800 text-white active:scale-90 transition-transform disabled:opacity-30"
+              >
+                <Minus size={32} />
+              </button>
+              <div className="text-center">
+                <p className="text-6xl font-mono font-extrabold text-white tabular-nums">
+                  {activeWorkout.currentReps}
+                </p>
+                <p className="mt-1 text-xs text-slate-500">Objetivo: {currentEx.config.reps}</p>
+              </div>
+              <button
+                onClick={() => adjustReps(1)}
+                disabled={!activeWorkout.isWorking || activeWorkout.currentReps >= currentEx.config.reps}
+                aria-label="Sumar una repetición"
+                className="flex h-16 w-16 items-center justify-center rounded-2xl bg-slate-800 text-white active:scale-90 transition-transform disabled:opacity-30"
+              >
+                <Plus size={32} />
+              </button>
+            </div>
+          )}
         </div>
 
         {/* Completed sets display */}
@@ -369,13 +435,26 @@ export function ActiveWorkoutPage() {
 
         {/* Action buttons */}
         <div className="space-y-3">
-          <button
-            onClick={handleCompleteSet}
-            className="btn-primary btn-lg w-full text-xl"
-          >
-            <Check size={24} />
-            Completar serie {activeWorkout.currentSet}
-          </button>
+          {setIsReady && (
+            <button
+              onClick={handleStartSet}
+              disabled={activeWorkout.isPaused}
+              className="btn-primary btn-lg w-full text-xl"
+            >
+              <Play size={24} />
+              Iniciar serie {activeWorkout.currentSet}
+            </button>
+          )}
+          {activeWorkout.isWorking && (
+            <button
+              onClick={handleCompleteSet}
+              disabled={!timedSet && activeWorkout.currentReps <= 0}
+              className="btn-primary btn-lg w-full text-xl"
+            >
+              <Check size={24} />
+              Completar serie {activeWorkout.currentSet}
+            </button>
+          )}
 
           <div className="flex gap-3">
             <button
@@ -418,4 +497,10 @@ export function ActiveWorkoutPage() {
       </div>
     </div>
   );
+}
+
+function counterLabel(timed: boolean, working: boolean, resting: boolean): string {
+  if (resting) return 'Siguiente serie';
+  if (!working) return timed ? 'Pulsa iniciar para el tiempo' : 'Pulsa iniciar para las repeticiones';
+  return timed ? 'Tiempo restante' : 'Repeticiones';
 }

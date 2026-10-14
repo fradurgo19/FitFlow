@@ -28,7 +28,14 @@ function playTone(
   osc.stop(ctx.currentTime + startOffset + duration);
 }
 
-export type SoundType = 'set-complete' | 'rest-end' | 'exercise-transition' | 'workout-complete';
+export type SoundType =
+  | 'work-start'
+  | 'work-end'
+  | 'rest-start'
+  | 'set-complete'
+  | 'rest-end'
+  | 'exercise-transition'
+  | 'workout-complete';
 
 export function playSound(type: SoundType, volume = 0.5): void {
   if (volume <= 0) return;
@@ -39,6 +46,16 @@ export function playSound(type: SoundType, volume = 0.5): void {
   const vol = Math.min(volume, 1) * 0.4;
 
   switch (type) {
+    case 'work-start':
+      playTone(ctx, 523, 0.18, vol);
+      break;
+    case 'work-end':
+      playTone(ctx, 660, 0.14, vol);
+      playTone(ctx, 880, 0.2, vol, 0.16);
+      break;
+    case 'rest-start':
+      playTone(ctx, 392, 0.22, vol);
+      break;
     case 'set-complete':
       playTone(ctx, 660, 0.15, vol);
       break;
