@@ -10,8 +10,8 @@ export const EXERCISES: ExerciseDefinition[] = [
     equipment: 'No Equipment',
     instructions:
       'Start in a plank position with hands shoulder-width apart. Lower your body until your chest nearly touches the floor, then push back up. Keep your core tight and body in a straight line.',
-    youtubeId: 'IODPZpQ8g4Q',
-    youtubeUrl: 'https://www.youtube.com/watch?v=IODPZpQ8g4Q',
+    youtubeId: 'WDIpL0pjun0',
+    youtubeUrl: 'https://www.youtube.com/watch?v=WDIpL0pjun0',
   },
   {
     id: 'incline-push-up',
@@ -21,8 +21,8 @@ export const EXERCISES: ExerciseDefinition[] = [
     equipment: 'No Equipment',
     instructions:
       'Place your hands on an elevated surface like a bench or wall. Lower your chest to the surface, then push back up. Great for building push-up strength.',
-    youtubeId: 'RsgXgRAtqWA',
-    youtubeUrl: 'https://www.youtube.com/watch?v=RsgXgRAtqWA',
+    youtubeId: 'Z0bRiVhnO8Q',
+    youtubeUrl: 'https://www.youtube.com/watch?v=Z0bRiVhnO8Q',
   },
   {
     id: 'diamond-push-up',
@@ -32,8 +32,8 @@ export const EXERCISES: ExerciseDefinition[] = [
     equipment: 'No Equipment',
     instructions:
       'Form a diamond shape with your hands under your chest. Lower your body and push back up. Targets triceps heavily.',
-    youtubeId: '5_lY8n2gCM4',
-    youtubeUrl: 'https://www.youtube.com/watch?v=5_lY8n2gCM4',
+    youtubeId: 'J0DnG1_S92I',
+    youtubeUrl: 'https://www.youtube.com/watch?v=J0DnG1_S92I',
   },
   {
     id: 'barbell-bench-press',
@@ -87,8 +87,8 @@ export const EXERCISES: ExerciseDefinition[] = [
     equipment: 'No Equipment',
     instructions:
       'Lie under a sturdy table or bar. Grab it with an overhand grip. Pull your chest to the bar, then lower. Keep your body straight.',
-    youtubeId: 'R2F5f1YySSw',
-    youtubeUrl: 'https://www.youtube.com/watch?v=R2F5f1YySSw',
+    youtubeId: 'Fl0UMfdEzsE',
+    youtubeUrl: 'https://www.youtube.com/watch?v=Fl0UMfdEzsE',
   },
   {
     id: 'dumbbell-row',
@@ -109,8 +109,8 @@ export const EXERCISES: ExerciseDefinition[] = [
     equipment: 'Machine',
     instructions:
       'Sit at a lat pulldown machine. Grip the bar wider than shoulder-width. Pull the bar to your upper chest, then return with control.',
-    youtubeId: 'CAoLhJqFYQc',
-    youtubeUrl: 'https://www.youtube.com/watch?v=CAoLhJqFYQc',
+    youtubeId: 'z-lxcsIN4T4',
+    youtubeUrl: 'https://www.youtube.com/watch?v=z-lxcsIN4T4',
   },
   {
     id: 'barbell-deadlift',
@@ -131,8 +131,8 @@ export const EXERCISES: ExerciseDefinition[] = [
     equipment: 'Barbell',
     instructions:
       'Stand holding a barbell at shoulder height. Press it overhead until arms are extended. Lower back to shoulders with control.',
-    youtubeId: '2yjwXTX9Qf4',
-    youtubeUrl: 'https://www.youtube.com/watch?v=2yjwXTX9Qf4',
+    youtubeId: '2yjwXTZQDDI',
+    youtubeUrl: 'https://www.youtube.com/watch?v=2yjwXTZQDDI',
   },
   {
     id: 'dumbbell-shoulder-press',
@@ -164,8 +164,8 @@ export const EXERCISES: ExerciseDefinition[] = [
     equipment: 'Dumbbells',
     instructions:
       'Stand holding dumbbells in front of your thighs. Raise them forward to shoulder height, then lower with control.',
-    youtubeId: '-t7fuZ0KhRA',
-    youtubeUrl: 'https://www.youtube.com/watch?v=-t7fuZ0KhRA',
+    youtubeId: '-t7fuZ0KhDA',
+    youtubeUrl: 'https://www.youtube.com/watch?v=-t7fuZ0KhDA',
   },
   {
     id: 'bicep-curl',
@@ -197,8 +197,8 @@ export const EXERCISES: ExerciseDefinition[] = [
     equipment: 'No Equipment',
     instructions:
       'Sit on the edge of a chair or bench. Place hands next to hips. Slide off and lower your body by bending elbows. Push back up.',
-    youtubeId: '3LqYydbkSa0',
-    youtubeUrl: 'https://www.youtube.com/watch?v=3LqYydbkSa0',
+    youtubeId: 'c3ZGl4pAwZ4',
+    youtubeUrl: 'https://www.youtube.com/watch?v=c3ZGl4pAwZ4',
   },
   {
     id: 'tricep-extension',
@@ -208,8 +208,8 @@ export const EXERCISES: ExerciseDefinition[] = [
     equipment: 'Dumbbells',
     instructions:
       'Hold a dumbbell overhead with both hands. Lower it behind your head by bending elbows. Extend back up. Keep elbows close to your head.',
-    youtubeId: 'YxXU-lrPRZg',
-    youtubeUrl: 'https://www.youtube.com/watch?v=YxXU-lrPRZg',
+    youtubeId: 'X-iV-cG8cYs',
+    youtubeUrl: 'https://www.youtube.com/watch?v=X-iV-cG8cYs',
   },
   {
     id: 'squat',
@@ -219,8 +219,8 @@ export const EXERCISES: ExerciseDefinition[] = [
     equipment: 'No Equipment',
     instructions:
       'Stand with feet shoulder-width apart. Lower your hips as if sitting in a chair. Keep your chest up and knees behind toes. Return to standing.',
-    youtubeId: 'aclHkVaku9Y',
-    youtubeUrl: 'https://www.youtube.com/watch?v=aclHkVaku9Y',
+    youtubeId: 'RClKKQqsvXA',
+    youtubeUrl: 'https://www.youtube.com/watch?v=RClKKQqsvXA',
   },
   {
     id: 'barbell-squat',
@@ -241,8 +241,8 @@ export const EXERCISES: ExerciseDefinition[] = [
     equipment: 'Dumbbells',
     instructions:
       'Hold dumbbells at your sides or at shoulder height. Squat down until thighs are parallel. Keep your chest up. Return to standing.',
-    youtubeId: '1YxIBkuvd6s',
-    youtubeUrl: 'https://www.youtube.com/watch?v=1YxIBkuvd6s',
+    youtubeId: 'v_c67Omje48',
+    youtubeUrl: 'https://www.youtube.com/watch?v=v_c67Omje48',
   },
   {
     id: 'lunge',
@@ -252,8 +252,8 @@ export const EXERCISES: ExerciseDefinition[] = [
     equipment: 'No Equipment',
     instructions:
       'Step forward with one leg. Lower your hips until both knees are at 90 degrees. Push through the front heel to bring the back leg forward.',
-    youtubeId: 'Q7F2auSFGlg',
-    youtubeUrl: 'https://www.youtube.com/watch?v=Q7F2auSFGlg',
+    youtubeId: 'yDVAlYTNPSo',
+    youtubeUrl: 'https://www.youtube.com/watch?v=yDVAlYTNPSo',
   },
   {
     id: 'dumbbell-lunge',
@@ -263,8 +263,8 @@ export const EXERCISES: ExerciseDefinition[] = [
     equipment: 'Dumbbells',
     instructions:
       'Hold dumbbells at your sides. Step forward into a lunge. Lower until both knees are at 90 degrees. Push back to standing. Alternate legs.',
-    youtubeId: 'D3Wm1j5pX5Y',
-    youtubeUrl: 'https://www.youtube.com/watch?v=D3Wm1j5pX5Y',
+    youtubeId: 'D7KaRcUTQeE',
+    youtubeUrl: 'https://www.youtube.com/watch?v=D7KaRcUTQeE',
   },
   {
     id: 'goblet-squat',
@@ -274,8 +274,8 @@ export const EXERCISES: ExerciseDefinition[] = [
     equipment: 'Kettlebell',
     instructions:
       'Hold a kettlebell or dumbbell at chest level. Squat down between your knees until thighs are parallel. Keep your chest up. Return to standing.',
-    youtubeId: 'MeIiIdhgPug',
-    youtubeUrl: 'https://www.youtube.com/watch?v=MeIiIdhgPug',
+    youtubeId: 'MeIiIdhvXT4',
+    youtubeUrl: 'https://www.youtube.com/watch?v=MeIiIdhvXT4',
   },
   {
     id: 'leg-press',
@@ -285,8 +285,8 @@ export const EXERCISES: ExerciseDefinition[] = [
     equipment: 'Machine',
     instructions:
       'Sit in the leg press machine. Place feet shoulder-width on the platform. Push the platform away by extending your legs. Lower with control.',
-    youtubeId: 'izDV6l0aNfY',
-    youtubeUrl: 'https://www.youtube.com/watch?v=izDV6l0aNfY',
+    youtubeId: '8EMbB0tCn7Q',
+    youtubeUrl: 'https://www.youtube.com/watch?v=8EMbB0tCn7Q',
   },
   {
     id: 'calf-raise',
@@ -296,8 +296,8 @@ export const EXERCISES: ExerciseDefinition[] = [
     equipment: 'No Equipment',
     instructions:
       'Stand on a flat surface. Rise onto the balls of your feet as high as possible. Lower slowly. For added challenge, stand on an edge.',
-    youtubeId: 'ZI3Kf-MGhLg',
-    youtubeUrl: 'https://www.youtube.com/watch?v=ZI3Kf-MGhLg',
+    youtubeId: 'k8ipHzKeAkQ',
+    youtubeUrl: 'https://www.youtube.com/watch?v=k8ipHzKeAkQ',
   },
   {
     id: 'glute-bridge',
@@ -307,8 +307,8 @@ export const EXERCISES: ExerciseDefinition[] = [
     equipment: 'No Equipment',
     instructions:
       'Lie on your back with knees bent and feet flat. Lift your hips off the floor by squeezing your glutes. Lower with control.',
-    youtubeId: 'q7p0tOuQ5b8',
-    youtubeUrl: 'https://www.youtube.com/watch?v=q7p0tOuQ5b8',
+    youtubeId: '8bbE64NuDTU',
+    youtubeUrl: 'https://www.youtube.com/watch?v=8bbE64NuDTU',
   },
   {
     id: 'hip-thrust',
@@ -318,8 +318,8 @@ export const EXERCISES: ExerciseDefinition[] = [
     equipment: 'Barbell',
     instructions:
       'Sit with your upper back against a bench. Place a barbell across your hips. Thrust hips up by squeezing glutes. Lower with control.',
-    youtubeId: 'SEdqdtp4kDg',
-    youtubeUrl: 'https://www.youtube.com/watch?v=SEdqdtp4kDg',
+    youtubeId: '29OfN4ztW_g',
+    youtubeUrl: 'https://www.youtube.com/watch?v=29OfN4ztW_g',
   },
   {
     id: 'bulgarian-split-squat',
@@ -329,8 +329,8 @@ export const EXERCISES: ExerciseDefinition[] = [
     equipment: 'Dumbbells',
     instructions:
       'Hold dumbbells. Place one foot behind you on a bench. Lower into a squat on the front leg. Push back up. Keep your torso upright.',
-    youtubeId: '2r-zMg1X-Pc',
-    youtubeUrl: 'https://www.youtube.com/watch?v=2r-zMg1X-Pc',
+    youtubeId: '2C-uNgKwPLE',
+    youtubeUrl: 'https://www.youtube.com/watch?v=2C-uNgKwPLE',
   },
   {
     id: 'plank',
@@ -362,8 +362,8 @@ export const EXERCISES: ExerciseDefinition[] = [
     equipment: 'No Equipment',
     instructions:
       'Sit with knees bent and feet off the floor. Lean back slightly. Rotate your torso side to side, touching the floor each time.',
-    youtubeId: 'wkD6r6c7kFc',
-    youtubeUrl: 'https://www.youtube.com/watch?v=wkD6r6c7kFc',
+    youtubeId: 'wkD8rjkodUI',
+    youtubeUrl: 'https://www.youtube.com/watch?v=wkD8rjkodUI',
   },
   {
     id: 'mountain-climber',
@@ -384,8 +384,8 @@ export const EXERCISES: ExerciseDefinition[] = [
     equipment: 'No Equipment',
     instructions:
       'Lie flat on your back. Keep your legs straight and raise them to a 90-degree angle. Lower slowly without touching the floor.',
-    youtubeId: 'l4kQd9DGzCw',
-    youtubeUrl: 'https://www.youtube.com/watch?v=l4kQd9DGzCw',
+    youtubeId: 'l4kQd9eWclE',
+    youtubeUrl: 'https://www.youtube.com/watch?v=l4kQd9eWclE',
   },
   {
     id: 'burpee',
@@ -395,8 +395,8 @@ export const EXERCISES: ExerciseDefinition[] = [
     equipment: 'No Equipment',
     instructions:
       'From standing, drop into a squat and kick your feet back to a plank. Do a push-up. Jump feet back to squat, then jump up explosively.',
-    youtubeId: 'dZgVxmp76rI',
-    youtubeUrl: 'https://www.youtube.com/watch?v=dZgVxmp76rI',
+    youtubeId: 'wS4OsJ4yzx4',
+    youtubeUrl: 'https://www.youtube.com/watch?v=wS4OsJ4yzx4',
   },
   {
     id: 'jumping-jack',
@@ -406,8 +406,8 @@ export const EXERCISES: ExerciseDefinition[] = [
     equipment: 'No Equipment',
     instructions:
       'Stand with feet together and arms at your sides. Jump to spread feet and raise arms overhead. Jump back to start. Repeat rapidly.',
-    youtubeId: 'c4DAnQ6Dt5Y',
-    youtubeUrl: 'https://www.youtube.com/watch?v=c4DAnQ6Dt5Y',
+    youtubeId: 'uLVt6u15L98',
+    youtubeUrl: 'https://www.youtube.com/watch?v=uLVt6u15L98',
   },
   {
     id: 'high-knees',
@@ -417,8 +417,8 @@ export const EXERCISES: ExerciseDefinition[] = [
     equipment: 'No Equipment',
     instructions:
       'Stand in place. Drive one knee up to hip height, then the other, as if running in place. Keep a quick pace and swing your arms.',
-    youtubeId: '8O8oQq7pP9w',
-    youtubeUrl: 'https://www.youtube.com/watch?v=8O8oQq7pP9w',
+    youtubeId: 'FvjmPRU3zn4',
+    youtubeUrl: 'https://www.youtube.com/watch?v=FvjmPRU3zn4',
   },
   {
     id: 'jump-rope',
@@ -428,8 +428,8 @@ export const EXERCISES: ExerciseDefinition[] = [
     equipment: 'Jump Rope',
     instructions:
       'Hold the rope handles. Swing the rope over your head and jump as it passes under your feet. Land softly on the balls of your feet.',
-    youtubeId: null,
-    youtubeUrl: null,
+    youtubeId: 'u3zgHI8QnqE',
+    youtubeUrl: 'https://www.youtube.com/watch?v=u3zgHI8QnqE',
   },
   {
     id: 'kettlebell-swing',
@@ -439,8 +439,8 @@ export const EXERCISES: ExerciseDefinition[] = [
     equipment: 'Kettlebell',
     instructions:
       'Stand with feet wider than shoulder-width. Hold the kettlebell with both hands. Hinge at the hips and swing the kettlebell forward to chest height.',
-    youtubeId: 'YSxHegg4r8o',
-    youtubeUrl: 'https://www.youtube.com/watch?v=YSxHegg4r8o',
+    youtubeId: 'B_x0tp3HIbk',
+    youtubeUrl: 'https://www.youtube.com/watch?v=B_x0tp3HIbk',
   },
   {
     id: 'resistance-band-row',
@@ -450,8 +450,8 @@ export const EXERCISES: ExerciseDefinition[] = [
     equipment: 'Resistance Bands',
     instructions:
       'Anchor a band at chest height. Hold the ends and pull them toward your torso, squeezing your shoulder blades together. Return with control.',
-    youtubeId: '5lF2FkCRfEE',
-    youtubeUrl: 'https://www.youtube.com/watch?v=5lF2FkCRfEE',
+    youtubeId: 'vR9KcvzLqVo',
+    youtubeUrl: 'https://www.youtube.com/watch?v=vR9KcvzLqVo',
   },
   {
     id: 'resistance-band-press',
@@ -461,8 +461,8 @@ export const EXERCISES: ExerciseDefinition[] = [
     equipment: 'Resistance Bands',
     instructions:
       'Anchor a band behind you at chest height. Hold the ends and press forward until arms are extended. Return with control.',
-    youtubeId: '3vXhFp0gH7w',
-    youtubeUrl: 'https://www.youtube.com/watch?v=3vXhFp0gH7w',
+    youtubeId: 'Rn-hf5iauTc',
+    youtubeUrl: 'https://www.youtube.com/watch?v=Rn-hf5iauTc',
   },
   {
     id: 'stability-ball-curl',
@@ -472,8 +472,8 @@ export const EXERCISES: ExerciseDefinition[] = [
     equipment: 'Stability Ball',
     instructions:
       'Lie on your back with heels on a stability ball. Lift your hips. Curl the ball toward your glutes, then extend back out.',
-    youtubeId: '5gZ_XyM3x9Q',
-    youtubeUrl: 'https://www.youtube.com/watch?v=5gZ_XyM3x9Q',
+    youtubeId: 'WNB90xXLEOg',
+    youtubeUrl: 'https://www.youtube.com/watch?v=WNB90xXLEOg',
   },
   {
     id: 'bird-dog',
@@ -483,8 +483,8 @@ export const EXERCISES: ExerciseDefinition[] = [
     equipment: 'No Equipment',
     instructions:
       'Start on your hands and knees. Extend one arm forward and the opposite leg back. Hold, then return. Alternate sides. Keep your spine neutral.',
-    youtubeId: 'wiFNA3sqjEU',
-    youtubeUrl: 'https://www.youtube.com/watch?v=wiFNA3sqjEU',
+    youtubeId: 'ZdAHe9_HeEw',
+    youtubeUrl: 'https://www.youtube.com/watch?v=ZdAHe9_HeEw',
   },
   {
     id: 'dead-bug',
@@ -494,8 +494,8 @@ export const EXERCISES: ExerciseDefinition[] = [
     equipment: 'No Equipment',
     instructions:
       'Lie on your back with arms extended up and knees at 90 degrees. Lower one arm and the opposite leg. Return and alternate. Keep your lower back flat.',
-    youtubeId: '4XHQqDeUAfY',
-    youtubeUrl: 'https://www.youtube.com/watch?v=4XHQqDeUAfY',
+    youtubeId: 'g_BYB0R-4Ws',
+    youtubeUrl: 'https://www.youtube.com/watch?v=g_BYB0R-4Ws',
   },
   {
     id: 'wall-sit',
@@ -505,8 +505,8 @@ export const EXERCISES: ExerciseDefinition[] = [
     equipment: 'No Equipment',
     instructions:
       'Lean your back against a wall. Slide down until your thighs are parallel to the floor. Hold the position. Keep your knees at 90 degrees.',
-    youtubeId: 'yvwq5KFG_5k',
-    youtubeUrl: 'https://www.youtube.com/watch?v=yvwq5KFG_5k',
+    youtubeId: 'bKQQLpQbJ7s',
+    youtubeUrl: 'https://www.youtube.com/watch?v=bKQQLpQbJ7s',
   },
   {
     id: 'pendlay-row',
@@ -516,8 +516,8 @@ export const EXERCISES: ExerciseDefinition[] = [
     equipment: 'Barbell',
     instructions:
       'With the bar on the floor, hinge forward. Grip the bar and explosively pull it to your lower chest. Lower it back to the floor each rep.',
-    youtubeId: 'Zl7bFiRG7E0',
-    youtubeUrl: 'https://www.youtube.com/watch?v=Zl7bFiRG7E0',
+    youtubeId: '0PSfteHhUtg',
+    youtubeUrl: 'https://www.youtube.com/watch?v=0PSfteHhUtg',
   },
 ];
 
