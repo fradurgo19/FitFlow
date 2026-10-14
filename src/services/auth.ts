@@ -1,5 +1,7 @@
 import { supabase } from '@/services/supabase';
 
+export const APP_URL = 'https://fit-flow-eosin.vercel.app';
+
 const AUTH_MESSAGES: Record<string, string> = {
   'Invalid login credentials': 'Correo o contraseña incorrectos.',
   'User already registered': 'Ese correo ya tiene una cuenta. Inicia sesión.',
@@ -19,7 +21,11 @@ export async function signIn(email: string, password: string): Promise<void> {
 
 export async function signUp(email: string, password: string): Promise<'session' | 'confirm'> {
   if (!supabase) throw new Error('La base de datos no está configurada.');
-  const { data, error } = await supabase.auth.signUp({ email, password });
+  const { data, error } = await supabase.auth.signUp({
+    email,
+    password,
+    options: { emailRedirectTo: `${APP_URL}/` },
+  });
   if (error) throw new Error(authErrorMessage(error.message));
   return data.session ? 'session' : 'confirm';
 }
