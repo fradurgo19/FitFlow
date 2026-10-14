@@ -19,6 +19,9 @@ interface AppState {
   measurements: Measurement[];
   preferences: AppPreferences;
   activeWorkout: ActiveWorkoutState | null;
+  authEmail: string | null;
+  authReady: boolean;
+  syncError: string | null;
 
   setProfile: (profile: UserProfile) => void;
   updateProfile: (partial: Partial<UserProfile>) => void;
@@ -48,6 +51,8 @@ interface AppState {
 
   exportData: () => string;
   clearAllData: () => void;
+  setAuthSession: (email: string | null, ready: boolean) => void;
+  setSyncError: (message: string | null) => void;
 }
 
 const defaultPreferences: AppPreferences = {
@@ -65,6 +70,9 @@ export const useStore = create<AppState>()(
       measurements: [],
       preferences: defaultPreferences,
       activeWorkout: null,
+      authEmail: null,
+      authReady: false,
+      syncError: null,
 
       setProfile: (profile) => set({ profile }),
       updateProfile: (partial) =>
@@ -305,11 +313,22 @@ export const useStore = create<AppState>()(
           measurements: [],
           preferences: defaultPreferences,
           activeWorkout: null,
+          syncError: null,
         }),
+      setAuthSession: (email, ready) => set({ authEmail: email, authReady: ready }),
+      setSyncError: (message) => set({ syncError: message }),
     }),
     {
       name: 'fitflow-storage',
       version: 1,
+      partialize: (state) => ({
+        profile: state.profile,
+        routines: state.routines,
+        sessions: state.sessions,
+        measurements: state.measurements,
+        preferences: state.preferences,
+        activeWorkout: state.activeWorkout,
+      }),
     },
   ),
 );

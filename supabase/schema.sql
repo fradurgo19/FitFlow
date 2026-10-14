@@ -1,5 +1,5 @@
--- FITFLOW: ejecutar en el editor SQL de Supabase.
--- Activar Authentication > Providers > Anonymous sign-ins.
+-- FITFLOW: cada usuario autenticado solo puede leer y escribir sus filas.
+-- El acceso es con correo y contraseña (Authentication > Email).
 
 create table if not exists public.fitflow_state (
   user_id uuid primary key references auth.users (id) on delete cascade,
@@ -91,17 +91,35 @@ alter table public.workout_sessions enable row level security;
 alter table public.measurements enable row level security;
 alter table public.preferences enable row level security;
 
+drop policy if exists "fitflow_state_own" on public.fitflow_state;
+drop policy if exists "profiles_own" on public.profiles;
+drop policy if exists "routines_own" on public.routines;
+drop policy if exists "routine_exercises_own" on public.routine_exercises;
+drop policy if exists "workout_sessions_own" on public.workout_sessions;
+drop policy if exists "measurements_own" on public.measurements;
+drop policy if exists "preferences_own" on public.preferences;
+
 create policy "fitflow_state_own" on public.fitflow_state
-  for all using (auth.uid() = user_id) with check (auth.uid() = user_id);
+  for all to authenticated using (auth.uid() = user_id) with check (auth.uid() = user_id);
 create policy "profiles_own" on public.profiles
-  for all using (auth.uid() = user_id) with check (auth.uid() = user_id);
+  for all to authenticated using (auth.uid() = user_id) with check (auth.uid() = user_id);
 create policy "routines_own" on public.routines
-  for all using (auth.uid() = user_id) with check (auth.uid() = user_id);
+  for all to authenticated using (auth.uid() = user_id) with check (auth.uid() = user_id);
 create policy "routine_exercises_own" on public.routine_exercises
-  for all using (auth.uid() = user_id) with check (auth.uid() = user_id);
+  for all to authenticated using (auth.uid() = user_id) with check (auth.uid() = user_id);
 create policy "workout_sessions_own" on public.workout_sessions
-  for all using (auth.uid() = user_id) with check (auth.uid() = user_id);
+  for all to authenticated using (auth.uid() = user_id) with check (auth.uid() = user_id);
 create policy "measurements_own" on public.measurements
-  for all using (auth.uid() = user_id) with check (auth.uid() = user_id);
+  for all to authenticated using (auth.uid() = user_id) with check (auth.uid() = user_id);
 create policy "preferences_own" on public.preferences
-  for all using (auth.uid() = user_id) with check (auth.uid() = user_id);
+  for all to authenticated using (auth.uid() = user_id) with check (auth.uid() = user_id);
+
+grant select, insert, update, delete on
+  public.fitflow_state,
+  public.profiles,
+  public.routines,
+  public.routine_exercises,
+  public.workout_sessions,
+  public.measurements,
+  public.preferences
+to authenticated;

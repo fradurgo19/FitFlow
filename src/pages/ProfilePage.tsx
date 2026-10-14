@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import {
   Download,
+  LogOut,
   Trash2,
   Volume2,
   Save,
@@ -10,6 +11,7 @@ import { Layout } from '@/components/Layout';
 import { PageHeader } from '@/components/PageHeader';
 import { Modal } from '@/components/Modal';
 import { isSupabaseConfigured } from '@/services/supabase';
+import { endSession } from '@/services/sync';
 import {
   EQUIPMENT_OPTIONS,
   EXPERIENCE_LABELS,
@@ -44,7 +46,7 @@ function numberOrNull(value: string): number | null {
 }
 
 export function ProfilePage() {
-  const { profile, preferences, setProfile, updateProfile, setPreferences, exportData, clearAllData } =
+  const { profile, preferences, authEmail, syncError, setProfile, updateProfile, setPreferences, exportData, clearAllData } =
     useStore();
   const [name, setName] = useState(profile?.name ?? '');
   const [age, setAge] = useState(profile?.age?.toString() ?? '');
@@ -141,7 +143,8 @@ export function ProfilePage() {
 
   return (
     <Layout>
-      <PageHeader title="Perfil" subtitle="Datos, sonido y privacidad" showLogo />
+      <PageHeader title="Perfil" subtitle={authEmail ?? 'Datos, sonido y privacidad'} showLogo />
+      {syncError && <p className="mb-4 rounded-xl border border-amber-500/20 bg-amber-500/10 px-4 py-3 text-sm text-amber-300">{syncError}</p>}
 
       <section className="mb-6 space-y-4">
         <div>
@@ -257,11 +260,16 @@ export function ProfilePage() {
       <section className="mb-6 space-y-3">
         <h2 className="text-lg font-bold text-white">Privacidad</h2>
         <p className="rounded-xl border border-slate-800 bg-slate-900 px-4 py-3 text-sm text-slate-400">
-          Tus rutinas, entrenamientos y medidas se guardan en este navegador.
           {isSupabaseConfigured()
-            ? ' Si Supabase está configurado, también se sincronizan con tu sesión anónima.'
-            : ' Esta copia todavía no tiene una base de datos conectada, así que no se sincronizan entre dispositivos.'}
+            ? 'Tus rutinas, entrenamientos y medidas pertenecen solo a tu cuenta. Otra persona no puede verlos.'
+            : 'Tus datos se guardan en este navegador porque la base de datos no está conectada.'}
         </p>
+        {authEmail && (
+          <button type="button" onClick={() => void endSession()} className="btn-secondary w-full">
+            <LogOut size={18} />
+            Cerrar sesión
+          </button>
+        )}
         <button type="button" onClick={handleExport} className="btn-secondary w-full">
           <Download size={18} />
           Exportar mis datos
@@ -274,7 +282,7 @@ export function ProfilePage() {
 
       <Modal open={confirmDelete} onClose={() => setConfirmDelete(false)} title="¿Borrar todos los datos?" size="sm">
         <p className="text-sm text-slate-300">
-          Se eliminarán el perfil, las rutinas, el entrenamiento en curso, el historial y las medidas de este dispositivo.
+          Se eliminarán el perfil, las rutinas, el entrenamiento en curso, el historial y las medidas de tu cuenta.
         </p>
         <div className="mt-5 flex gap-3">
           <button type="button" onClick={() => setConfirmDelete(false)} className="btn-secondary flex-1">Cancelar</button>
